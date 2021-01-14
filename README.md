@@ -2,7 +2,8 @@
 #1월 한달 프론트앤드 기초부터 바로잡기 프로젝트 16/30
 
 ## 학습환경
-#vsc, local3000 -> 5000으로 변경
+#vsc, local3000 -> 5000으로 변경<br>
+#mongoDB, Express, Postman
 
 ## 학습내용
 #John Ahn - 노드 리액트 기초강의 <br>
@@ -21,3 +22,6 @@
 11. 토큰생성 with jsonwebtoken✔
 12. Auth 기능✔
 13. 로그아웃 기능✔
+
+## 삽질
+ReferenceError: req is not defined

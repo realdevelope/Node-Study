@@ -19,5 +19,5 @@
 9. Bcrypt로 비밀번호 암호화✔
 10. 로그인 기능 with bcrypt✔
 11. 토큰생성 with jsonwebtoken✔
-12. Auth 기능
-13. 로그아웃 기능
+12. Auth 기능✔
+13. 로그아웃 기능✔

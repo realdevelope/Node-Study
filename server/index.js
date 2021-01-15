@@ -23,6 +23,12 @@ mongoose.connect(config.mongoURI, {
 
 app.get('/', (req, res) => res.send('안녕하세요~ 다들 새해복 많이 받으세요!!!'))
 
+//react.js request!!! 임의로 되는지 확인
+app.get('/api/hello', (req,res) => {
+  res.send("안녕하세요~")
+})
+
+
 
 //회원가입
 app.post('/api/users/register', (req, res =>{

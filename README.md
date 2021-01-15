@@ -31,10 +31,10 @@
 5. CRA to Our Boilerplate✔
 6. React Router Dom✔
 7. 데이터 Flow & Axios✔
-8. CORS 이슈, Proxy 설정
-9. Proxy Server
-10. Concurrently
-11. Antd CSS Framwork
+8. CORS 이슈, Proxy 설정✔
+9. Proxy Server✔
+10. Concurrently✔
+11. Antd CSS Framwork✔
 12. Redux Basic
 13. Redux UP!!!
 14. React Hooks

@@ -1,6 +1,5 @@
 const express = require('express')  //익스프레스 모듈 가져오기
 const app = express()   //펑션으로 익스프레스앱을 만듬
-const port = 5000;   //마음대로 가능 5000으로 임의로 설정 디폴드값은 3000
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const config = require('./config/key');
@@ -106,5 +105,6 @@ app.get('/api/users/logout', auth, (req, res) => {
       })
   })
 
+const port = 5000;   //마음대로 가능 5000으로 임의로 설정 디폴드값은 3000
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

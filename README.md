@@ -46,4 +46,5 @@
 20. 인증 체크 2
 
 ## 삽질
-ReferenceError: req is not defined
+ReferenceError: req is not defined<br>
+-> index.js 오타 

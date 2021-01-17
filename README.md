@@ -46,7 +46,7 @@
 20. 인증 체크 2✔
 
 ## 스크린샷(미리보기)
-1)로그인
+1)로그인<br>
 ![2](https://user-images.githubusercontent.com/48710889/104853364-b63c0600-5943-11eb-8e46-7758b796fe77.PNG)
 2)로그인 완료<br>
 ![1](https://user-images.githubusercontent.com/48710889/104853363-b5a36f80-5943-11eb-8927-351dd32ce56d.PNG)

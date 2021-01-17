@@ -47,12 +47,11 @@
 
 ## 스크린샷(미리보기)
 1)로그인
-![2](https://user-images.githubusercontent.com/48710889/104853266-05356b80-5943-11eb-9b0e-4d75c3e75133.PNG)
+![2](https://user-images.githubusercontent.com/48710889/104853364-b63c0600-5943-11eb-8e46-7758b796fe77.PNG)
 2)로그인 완료
-![1](https://user-images.githubusercontent.com/48710889/104853265-04043e80-5943-11eb-880b-e937534ad07b.PNG)
+![1](https://user-images.githubusercontent.com/48710889/104853363-b5a36f80-5943-11eb-8927-351dd32ce56d.PNG)
 3)회원가입 
-![3](https://user-images.githubusercontent.com/48710889/104853268-05ce0200-5943-11eb-8c88-f43c70a176a4.PNG)
-
+![3](https://user-images.githubusercontent.com/48710889/104853365-b6d49c80-5943-11eb-8b5e-2ea1faa0cd53.PNG)
 
 ## 삽질
 1. ReferenceError: req is not defined<br>

@@ -40,11 +40,11 @@
 14. React Hooks✔
 15. 로그인 페이지 1✔
 16. 로그인 페이지 2✔
-17. 회원가입 페이지
-18. 로그아웃
-19. 인증 체크 1
-20. 인증 체크 2
+17. 회원가입 페이지✔
+18. 로그아웃✔
+19. 인증 체크 1✔
+20. 인증 체크 2✔
 
 ## 삽질
-ReferenceError: req is not defined<br>
--> index.js 오타 
+1. ReferenceError: req is not defined<br>
+-> index.js 오타

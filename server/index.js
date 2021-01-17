@@ -97,7 +97,7 @@ app.get('/api/users/auth', auth, (req, res) => {   //auth라는 미들웨어 추
 })
 
 app.get('/api/users/logout', auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { token: " " }, (err, user) => {
         if (err) return res.json({ success: false, err });
         return res.status(200).send({
           success: true

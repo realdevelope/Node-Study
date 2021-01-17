@@ -1,24 +1,30 @@
 import React, { useState } from 'react'
+//eslint-disable-next-line
 import Axios from 'axios'
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../../../_actions/user_action';
+import { withRouter } from 'react-router-dom'; 
 
 function LoginPage(props) {
     const dispatch = useDispatch();
 
-    //Email을 위한 state, Password를 위한 state
+    //eslint-disable-next-line
     const [Email, setEmail] = useState("")
     //eslint-disable-next-line
     const [Password, setPassword] = useState("")
-    //eslint-disable-next-line
+    
+
     const onEmailHandler = (event) => {     //입력이 가능하게
         setEmail(event.currentTarget.value)
     }
     const onPasswordHandler = (event) => {
         setPassword(event.currentTarget.value)
     }
+
+
     const onSubmitHandler = (event) => {
         event.preventDefault();     //이게 없으면 누를때마라 리프레쉬 되기떄문에 다른작업을 못해서 막음
+
 
         let body = {
             email: Email,
@@ -33,9 +39,8 @@ function LoginPage(props) {
                     alert('Error˝')
                 }
             })
-
-
     }
+
 
     return (
         <div style={{
@@ -58,4 +63,4 @@ function LoginPage(props) {
     )
 }
 
-export default LoginPage;
+export default withRouter(LoginPage)

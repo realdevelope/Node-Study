@@ -35,11 +35,11 @@
 9. Proxy Server✔
 10. Concurrently✔
 11. Antd CSS Framwork✔
-12. Redux Basic
-13. Redux UP!!!
-14. React Hooks
-15. 로그인 페이지 1
-16. 로그인 페이지 2
+12. Redux Basic✔
+13. Redux UP!!!✔
+14. React Hooks✔
+15. 로그인 페이지 1✔
+16. 로그인 페이지 2✔
 17. 회원가입 페이지
 18. 로그아웃
 19. 인증 체크 1

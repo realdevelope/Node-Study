@@ -1,0 +1,248 @@
+<리액트 JS>
+1.리액트란?
+- 라이브러리 (프레임워크x)
+- 페이스북에서 2013년도에 발표
+- 컴포넌트로 이루어져 있음(모듈이랑 비슷함 - 재사용가능)
+
+- 리얼 돔 : 리스트들이 여러개있을때 한개만 변화가 일어날때
+              전체를 다시 로드시킨다.
+- 버추얼 돔 : 리스트들이 여러개있을때 한개만 변화가 일어날때
+                 변화가 일어난 것만 다시 로드시킨다.
+	     (처음 스냅샷 찍어둔것과 비교해서 바뀐부분을 찾음 =>이걸 diffing이라고 함)	
+
+2.Create-react-App
+-원래는 리액트 앱을 처음 실행하기위해선 webpack 이나 babel을
+ 설정하기 위해 시간이 많이걸렸지만 이젠 create-react-app Command로 바로 시작가능
+-Babel
+ 최신 자바스크립트 문법을 지원하지 않는 브라우저들을 위해서
+  최신 자바스크립트 문법을 돌 수 있게 변환시켜줌! ( ex) ES5 )
+-Webpack
+  웹사이트가 이전엔 간단하여 html,css,js 로만 되었으나 근래엔 웹사이트 제작시 
+  라이브러리, 프레임워크 등이 많아지면서 복잡해졌는데 복잡한걸  webpack을 통해 Bundle 해줌.(묶어줌)
+
+3.npm, npx
+-npx create-react-app .
+  닷(.) : 클라이언트 디렉토리 안에다가 설치하겠다는 뜻
+  설치할 디렉토리로 이동후 터미널에서 입력
+  =>npm이 아니라 npx를 사용하는 이유
+      (예전에는 -g(글로벌)로 다운받았지만 npx로 npm registry에서 create-react-app을 찾아서 다운없이 실행시킴)
+      장점: 1. Disk Space를 낭비하지 않을 수 있다.
+             2. 항상 최신버전을 사용할 수 있다.
+
+4.구조설명
+-리액트 시작할떄 npx로 다운받았는데 npm run start가 사용가능한 이유
+  package.json에 script부분에 start: 부분에 npm run start로 설정했기 때문(default)
+-App.js 가 랜더링된 화면이 뜸
+  -> index.js 가 App.js 컴포넌트가 들어가있기 때문
+  -> index.html의 <div id = "root"></div>로 되있고,
+      index.js의 document.getElementById('root') 로 되어있음
+      따라서 index.html의 root을 hello로 바꾸고 index.html의 root를 hello로 바꾸면 단순 hello만 출력됨
+      (root는 default)
+-webpack 은 src부분만 관리해줌
+  그래서 이미지나 다른 파일들을 src부분에 넣어줘야한다 ->bundle(묶어줌)해줌
+-public에는 index.html만 쓰일 수 있음
+
+5.CRA to Our Boilerplate
+-src
+  _actions ---------------------------- Redux를 위한 폴더들
+  _reducer
+  
+  _components
+      views ----------------------------- Page들을 넣음
+          Section ----------------------- 해당 페이지에 관련된 Css, component들을 넣음  
+  
+ App.js ------------------------------- Routing 관련 일을 처리
+ Config.js ----------------------------- 환경변수들을 정함
+ 
+ hoc ----------------------------------- 해당 유저가 페이지에 들어갈 자격에 따라 가게해주거나 다른페이지로 보내버림 
+ utils-----------------------------------  여러군데 쓰일 수 있는것들을 넣고, 어디서든 사용할 수 있게 해줌
+  
+-실제로컬에도 위와같이 설정
+*****확장프로그램 es7 다운받고 rfce 단축키로 기본자동완성!
+
+6. React router Dom
+-페이지 이동을 할 때  React Router Dom 을 사용
+-npm install react-router-dom --save  로 다운
+-https://reactrouter.com/web/example/basic 페이지 참고해서
+ react router dom 코드 복붙!!
+-그리고 하고자하는데로 맞게 변경
+
+7.데이터flow & Axios
+-노드js할떄는 Client 부분이 없었기에 postman을 이용했으나
+ react,js 를 만듬으로써 request를 보내면 된다.(axios 이용 -> jQeury 의 Ajax같은)
+-AXIOS 다운 -> npm install axios --save
+-그리고 임의로 request 되는지 확인
+  1)LandinPage.js 에 import { useEffect } from 'react';
+		  import axios from 'axios'; 추가하고
+     함수내에 useEffect(() => {
+        axios.get('/api/hello')
+        .then(response => console.log(response.data))
+    }, [])    를 추가한다.
+
+  2)server/index.js 에 app.get('/api/hello', (req,res) => {
+  	res.send("안녕하세요~")
+	})   를 추가한다
+  3)npm run backend
+  4)터미널 하나 추가하고 npm run start  
+  5)LandingPage.js 에 axios.get('http://localhost:5000/api/hello')로 수정
+   -->오류발생! : 이유는 백포트랑 프론트포트가 다르기때문 (cors 정책(cross-Origin Resourse Sharing)에 의거 보안떄문에)
+   --> 프록시를 사용하여 해결!
+
+8. CORS 이슈,  Proxy설정
+- npm install http-proxy-middleware --save
+- src/setupProxy.js 에 
+     const proxy = require('http-proxy-middleware');
+     module.exports = function (app) {
+        app.use(
+            '/api',
+            proxy({
+                target: 'http://localhost:5000',
+                changeOrigin: true,
+             })
+         );
+      };   입력
+-7번의 5)번에 한 작업을 취소(http://localhost5000을 삭제)
+-프론트, 백 서버 실행!-> 오류 해결
+
+9. Proxy Server
+-유저 -----------------------프록시서버 ----------------인터넷
+-프록시서버의 기능
+  1)방화벽기능
+  2)웹 필터 기능
+  3) 캐시, 공유 데이터 제공
+  4)IP를 임의로 바꿀 수 있다(인터넷에서는 접근하는 사람의 ip를 모르게한다)
+  5)보내는 데이터도 임의로 바꿀 수 있다.
+-프록시 서버 사용이유
+ 1)회사,가정에서 인터넷 사용 제어
+ 2)캐쉬를 이용해 빠른 인터넷 이용
+ 3) 더나은 보안 제공
+ 4) 사이트의 이용제한하거나 제한된 사이트 접근가능
+
+10.Concurrently
+-Concurrently를 이용해서 프론트, 백 서버 한번에 켜기
+ (이전에는 프론트서버, 백서버 따로 켰었음)
+-npm concurrently --save 로 설치
+-package.json의 script에 
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\""
+    를 추가하여 dev를 입력시 두가지다 작용할 수 있게 한다.
+
+11.Antd css Framework
+-기능을 만드는데 더욱 집중하기 위해서!!
+ (css로 하나하나 만들기엔 너무 시간이 많이 소요)
+-css Framework 
+ 1)Material UI
+ 2)React Bootstrap
+ 3)Semantic UI
+ 4)Ant Design --------------이걸 사용할 예정
+ 5)Materialize  등
+-Ant Design
+  중국에서 만든 프레임워크
+  단점 : 무겁다 (많은 기능이 들어있음)
+  장점 : 스타일이 깔끔하고, 엔터프라이즈 환경에 어울리는 디자인
+           사용하기 굉장히 편함
+  1)은 사용하기전에 배우기가 조금 까다롭고 디자인이 조금 떨어져서 4) 사용
+- npm install antd 로 다운
+
+12. Redux
+-Redux : 상태관리 라이브러리(State를 관리)
+-Props ( Properties의 줄임말 )
+ >부모컴포넌트안에 자식컴포넌트가 있을때
+   컴포너는간에 뭔가를 주고받을때는 Props를 이용해야함
+ >소통하는방식 : 위에서 아래(부모->자식)로만 보낼 수 있음
+ >부모컴포넌트에서 자식컴포넌트에게 1이라는 벨류를 줬을때
+   자식컴포넌트 안에서는 값이 변할 수 없다.
+    (바꿀려면 부모컴포넌트에서 다른 값를 내려줘야 함)
+
+-State
+ >부모컴포넌트에서 자식컴포넌트에게 주는게 아니라
+   컴포넌트 안에서 데이터를 주고받을떄 State를 써야함
+ >mutable이므로 Props와 달리 컴포넌트 내에서 값이 변화 가능
+   (값이 변화면 리랜더링 됨)
+
+-Redux 데이터 Flow
+ React Component -> Dispatch -> ACTION -> REDUCER -> STORE -> Subscribe -> React Component
+ >Action : 무엇이 일어났는지 설명하는 객체
+ >Reducer : State가 action으로 인해 변했다는걸 설명해주는 곳
+                 (이전 State와 action object를 받은후에 return한다)
+ >Store : State를 전체적으로 감싸주는 역할,
+             Store안에는 여러가지 메소드들이 있어서 State를 관리할 수 있다
+
+13.Redux UP
+-Dependency들(redux, react-redux, redux-promis, redux-thunk) 다운 
+ --> npm install redux react-redux, redux-promis redux-thunk --save
+-리덕스 미들웨어 Promis, thunk 가 필요한 이유는 리덕스를 잘 사용할 수있게 도와주기떄문
+ -->리덕스 스토어에 State를 변경할때 디스패치를 통해 액션을 통해서 변경함
+ -->액션은 객체형식이여야 받을 수 있음 (단, promise 형식, Functions 형태로 올때 미들웨어가 어떻게 해야하는지 알려줌)
+ 
+-Redux 기본구조(scaffolding)만들기
+ -->_reducers 폴더 아래에 index.js, user_reducer.js 파일을 생성
+ -->_위에서 설치한것들을 전부 index.js에 import 해주고 적용시킨다.
+
+14.React Hooks
+-React Component
+ 1)Class
+   >더많은 기능들을 사용가능
+   >코드가 길어진다
+   >좀 더 복잡해진다
+   >성능면에서 좀 느리다
+ 2)Function 
+   >기능들이 한정적이다
+   >코드가 짧아진다
+   >좀더 간결해진다
+   >성능이 Class형식보다는 좋다
+-React Hook (16.8v)
+ >Function 에서도 class에서만 사용가능한 기능들을 사용할 수 있게됨
+ -->State 지정하는부분, DidMount() (lifesycle) -> useEffect()를 이용해서 사용가능하게됨
+-React가 어떤 순서로 생성되는지
+  -->1) constructor -> state 부여( name: "")
+      2) render()  -dom에다가 알맞게 다 넣어줌
+      3) componentDidMount() - 데이터를 가져오거나 하고싶은것들을 해줌
+
+15~16. 로그인페이지
+-Boiler Plate는 로그인, 회원가입 부분을 Formik, Yup 이라는 라이브러리르 사용하는데
+  어렵기떄문에 간단하게만 진행.
+   -->그래도 리덕스를 사용안하면 더쉬운데 사용해서 이해하는데 어려움..
+
+17.회원가입
+추후 보강
+
+18.로그아웃
+-로그아웃 페이지를 따로 만드는게 아니라 LandingPage에 로그아웃 버튼을 만듬
+-버튼에 onClick = {onClickHandler} 를 삽입후 페이지전환 코드 작성(아래와같음)
+     const onClickHandler =() =>{
+        axios.get(`/api/users/logout`)
+        .then(response => {
+            console.log(response.data)
+        })
+    }
+-로그아웃 성공시 로그인페이지로 페이지전환
+
+19~20. 인증 체크
+-아무나 진입이 가능한 페이지, 로그인한 회원만 진입 가능한 페이지, 
+  로그인한 회원은 진입못하는 페이지, 관리자만 진입 가능한 페이지
+  (댓글작성, 파일전송, 파일업로드 등)
+-HOC(HyerOrderComponent)
+ >다른 컴포넌트를 받은 후 새로운 컴포넌트를 리터하는 Function
+ >Auth(HOC)에 다른 컴포넌트들을 넣을 수 있음 -> 새로운 컴포넌트
+ >랜딩 페이지에서는 백앤드에 request를 날려서 현재상태(로그인안된, 로그인된, 관리자 등)를 가져온다
+ >관리자 페이지에서는 백앤드에 request를 날려서 현재상태(로그인안된, 로그인된, 관리자 등)를 가져오고
+   로그인이 안되있거나 관리자가 아닌 상태일시 다른페이지로 보내버림
+ >로그인 페이지에서는 백앤드에 request를 날려서 현재상태(로그인안된, 로그인된, 관리자 등)를 가져오고
+   로그인하지않은 상태는 가능, 로그인되어있거나 관리자일경우 다른페이지로 보내버림
+ **App.js에서 Auth로 컴포넌트를 감싸줘야한다 
+ **import { withRouter } from 'react-router-dom';   과
+   export default withRouter(LandingPage)   를 써줘야
+   props.history.push("/login") 와 같은 문장을 사용할 수 있다.(history)
+ 
+
+
+
+
+
+
+
+
+
+
+
+              
